@@ -1,27 +1,11 @@
-var app = require("express")();
-var http = require("http").Server(app);
-var io = require("socket.io")(http);
+const app = require("express") ();
+const http = require("http").Server(app);
+const io = require("socket.io") (http);
+const port = 3000;
 app.set("view engine", "ejs");
-app.get("/", function (req, res) {
-  res.render("index");
-});
-
-users = [];
-io.on("connection", function (socket) {
-  console.log("A user connected");
-  socket.on("setUsername", function (data) {
-    if (users.indexOf(data) > -1) {
-      users.push(data);
-      socket.emit("userSet", { username: data });
-    } else {
-      socket.emit(
-        "userExists",
-        data + " username is taken! Try some other username."
-      );
-    }
-  });
-});
-
-http.listen(3000, function () {
-  console.log("listening on localhost:3000");
-});
+app.get("/", (request,response) => {
+    response.render("index");
+})
+http.listen(process.env.PORT || port, () => {
+    console.log(`Server listening at port ${port}`)
+})
