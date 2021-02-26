@@ -1,4 +1,2 @@
-function _socket() {
-    let _socket = io();
-}
-_socket();
+import { Socket } from "socket.io";
+ 
